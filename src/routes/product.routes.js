@@ -11,6 +11,7 @@ const token = require('../utils/token.util');
 // Create instance
 const router = Router();
 
-router.get('/product', token.verify, product.get)
+router.get('/product', token.verify, product.get);
+router.post('/product', token.verify, product.post);
 
 module.exports = router;

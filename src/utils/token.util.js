@@ -13,7 +13,7 @@ token.generate = (id) => {
 }
 
 token.verify = async(req, res, next) => {
-    if(req.headers.token === null) res.status(401).json({
+    if(req.headers.token === undefined) res.status(401).json({
         server: 'No estas autenticado'
     });
     try {
@@ -38,7 +38,7 @@ token.verify = async(req, res, next) => {
     } catch(e) {
         console.log(e);
         if(e.name === 'TokenExpiredError') res.status(403).json({
-            server: 'La sesion ha finalizado'
+            server: 'La sesion ha expirado'
         });
         else res.status(403).json({
             server: 'Token corrupto'

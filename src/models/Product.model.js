@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-const { uuid } = require('uuidv4');
 
 const ProductSchema = new Schema({
   name: {type: String, required: true},
