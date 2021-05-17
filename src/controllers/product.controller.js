@@ -40,4 +40,12 @@ productController.post = async(req, res) => {
     }
 }
 
+productController.delete = async(req, res) => {
+    const { id } = req.body;
+    await Product.findByIdAndDelete(id);
+    res.status(200).json({
+        server: 'Producto eliminado'
+    });
+}
+
 module.exports = productController

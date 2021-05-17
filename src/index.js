@@ -3,6 +3,8 @@
 const express = require('express');
 const morgan = require('morgan');
 const multer = require('multer');
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 const path = require('path');
 const chalk = require('chalk');
 const { v4: uuidv4 } = require('uuid');
@@ -19,7 +21,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 // Public folder
-app.use(express.static(path.resolve(__dirname, 'public')));
+app.use('/productImages', express.static(path.resolve(__dirname, 'public', 'productImages')));
 
 // Multer to handle files
 app.use(
@@ -54,6 +56,38 @@ require('./utils/database.util');
 app.use(require('./routes/user.routes'));
 app.use(require('./routes/product.routes'));
 app.use(require('./routes/category.routes'));
+
+// Swagger conf
+const options = {
+    definition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'LogRocket Express API with Swagger',
+            version: '0.1.0',
+            description:
+                'This is a simple CRUD API application made with Express and documented with Swagger',
+            license: {
+                name: 'MIT',
+                url: 'https://spdx.org/licenses/MIT.html',
+            },
+            contact: {
+                name: 'LogRocket',
+                url: 'https://logrocket.com',
+                email: 'info@email.com',
+            },
+        },
+        servers: [{
+            url: 'http://localhost:8080/',
+        }],
+    },
+    apis: ['./src/routes/*.js'],
+};
+const specs = swaggerJsdoc(options);
+app.use(
+    '/api-docs',
+    swaggerUi.serve,
+    swaggerUi.setup(specs, { explorer: true })
+);
 
 // Start the server
 app.listen(app.get('port'), () => {

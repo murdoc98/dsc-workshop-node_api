@@ -13,5 +13,6 @@ const router = Router();
 
 router.get('/product', token.verify, product.get);
 router.post('/product', token.verify, product.post);
+router.delete('/product', token.verify, product.delete);
 
 module.exports = router;
