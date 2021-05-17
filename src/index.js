@@ -4,12 +4,8 @@ const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
 const chalk = require('chalk');
-const session = require('express-session');
-const MongoStore = require('connect-mongo');
-require('dotenv').config();
 
-// extra code
-const config = require('./config');
+require('dotenv').config();
 
 const app = express();
 
@@ -24,14 +20,7 @@ app.use(express.json());
 app.use(express.static(path.resolve(__dirname, 'public')));
 
 // Database connection
-app.use(
-    session({
-        secret: process.env.DB_PASS,
-        resave: true,
-        saveUninitialized: true,
-        store: MongoStore.create({ mongoUrl: config.MONGODB_URI })
-    })
-);
+require('./utils/database.util');
 
 // Routes
 app.use(require('./routes/user.routes'));
