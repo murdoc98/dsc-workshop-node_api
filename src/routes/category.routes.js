@@ -1,8 +1,9 @@
-// import packages
+'use strict'
+// Import packages
 const { Router } = require('express');
 
-// Import controllers
-const product = require('../controllers/product.controller');
+// import controllers
+const category = require('../controllers/category.controller');
 
 // Import middlewares
 const token = require('../utils/token.util');
@@ -10,6 +11,6 @@ const token = require('../utils/token.util');
 // Create instance
 const router = Router();
 
-router.get('/product', token.verify, product.get)
+router.get('/category', token.verify, category.get);
 
 module.exports = router;

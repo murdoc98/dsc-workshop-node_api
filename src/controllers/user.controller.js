@@ -1,7 +1,7 @@
 'use strict'
 const User = require('../models/User.model');
-const jwt = require('jsonwebtoken');
 const chalk = require('chalk');
+const token = require('../utils/token.util');
 require('dotenv').config();
 
 const userController = {};
@@ -21,6 +21,7 @@ userController.signup = async(req, res) => {
     });
 
     else {
+        // TODO Fix the password cipher
         const newUser = new User({name, email, password});
         await newUser.encryptPassword(password);
         await newUser.save();
@@ -41,11 +42,7 @@ userController.login = async(req, res) => {
         server: 'Contraseña incorrecta'
     });
     else {
-        const newToken = jwt.sign(
-            { id: user.id }, 
-            process.env.TOKEN_PASS,
-            { expiresIn: '10m' }
-        );
+        const newToken = token.generate(user.id);
         user.token = newToken;
         await User.findByIdAndUpdate(user.id, {token:newToken})
             .then((user) => console.log(`${user.name} was updated`))

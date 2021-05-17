@@ -4,6 +4,14 @@ require('dotenv').config();
 
 let token = {}
 
+token.generate = (id) => {
+    return jwt.sign(
+        { id }, 
+        process.env.TOKEN_PASS,
+        { expiresIn: '10m' }
+    );
+}
+
 token.verify = async(req, res, next) => {
     if(req.headers.token === null) res.status(401).json({
         server: 'No estas autenticado'

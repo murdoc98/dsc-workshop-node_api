@@ -24,6 +24,8 @@ require('./utils/database.util');
 
 // Routes
 app.use(require('./routes/user.routes'));
+app.use(require('./routes/product.routes'));
+app.use(require('./routes/category.routes'));
 
 // Start the server
 app.listen(app.get('port'), () => {
