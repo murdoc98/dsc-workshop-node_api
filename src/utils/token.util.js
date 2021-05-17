@@ -8,7 +8,7 @@ token.generate = (id) => {
     return jwt.sign(
         { id }, 
         process.env.TOKEN_PASS,
-        { expiresIn: '10m' }
+        { expiresIn: '1d' }
     );
 }
 

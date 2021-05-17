@@ -12,5 +12,7 @@ const token = require('../utils/token.util');
 const router = Router();
 
 router.get('/category', token.verify, category.get);
+router.post('/category', token.verify, category.post);
+router.delete('/category', token.verify, category.delete);
 
 module.exports = router;

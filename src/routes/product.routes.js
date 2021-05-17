@@ -1,3 +1,4 @@
+'use strict'
 // import packages
 const { Router } = require('express');
 
