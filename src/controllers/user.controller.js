@@ -21,9 +21,8 @@ userController.signup = async(req, res) => {
     });
 
     else {
-        // TODO Fix the password cipher
         const newUser = new User({name, email, password});
-        await newUser.encryptPassword(password);
+        newUser.password = await newUser.encryptPassword(password);
         await newUser.save();
         res.status(200).json({
             server: 'Usuario registrado'
@@ -34,11 +33,10 @@ userController.signup = async(req, res) => {
 userController.login = async(req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({email});
-    console.log(user);
     if(user === null) res.status(404).json({
         server: 'Correo no encontrado'
     });
-    else if(user.password !== password) res.status(403).json({
+    else if(! (await user.matchPassword(password))) res.status(403).json({
         server: 'Contraseña incorrecta'
     });
     else {
