@@ -62,18 +62,17 @@ const options = {
     definition: {
         openapi: '3.0.0',
         info: {
-            title: 'LogRocket Express API with Swagger',
+            title: 'DSC ESCOM ExpressAPI',
             version: '0.1.0',
             description:
-                'This is a simple CRUD API application made with Express and documented with Swagger',
+                'Esta API fue creada para el taller del DSC-ESCOM 2020-2',
             license: {
                 name: 'MIT',
                 url: 'https://spdx.org/licenses/MIT.html',
             },
             contact: {
-                name: 'LogRocket',
-                url: 'https://logrocket.com',
-                email: 'info@email.com',
+                name: 'DSC-ESCOM',
+                url: 'https://www.facebook.com/Developer-Student-Club-ESCOM-IPN-111708200650636',
             },
         },
         servers: [{
